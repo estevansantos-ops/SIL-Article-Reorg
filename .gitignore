@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------
+# Artefatos de build / cache do MATLAB e Simulink
+# ---------------------------------------------------------------------------
+# Tudo o que o Simulink gera passa a nascer em build/ por causa do
+# Simulink.fileGenControl configurado em sil_setup.m. O conteudo e
+# inteiramente regeneravel, entao nada daqui deve ser versionado.
+build/*
+!build/.gitkeep
+
+# Rede de seguranca: se o sil_setup nao tiver rodado, o Simulink volta a
+# escrever o cache em pwd. Estes padroes evitam que isso seja commitado.
+slprj/
+*.slxc
+sccprj/
+codegen/
+
+# Autosave e backup do editor / Simulink
+*.asv
+*.autosave
+*.slx.autosave
+*.slx.original
+*.slx.r20*
+*.m~
+
+# MEX compilado. bin/win64/ e a excecao: as duas S-functions do link UDP com
+# o X-Plane estao versionadas la de proposito, para que o projeto rode em uma
+# maquina sem compilador C instalado.
+*.mexw64
+*.mexw32
+*.mexa64
+*.mexmaci64
+*.obj
+*.lib
+*.exp
+!bin/win64/*.mexw64
+
+# Relatorios de geracao de codigo
+html/
+*_ert_rtw/
+*_grt_rtw/
+*_sfun/

@@ -1,0 +1,12 @@
+# Projeto MATLAB/Simulink: a maioria dos arquivos e binaria ou sensivel a
+# conversao de fim de linha (.slx e zip, .mat/.fig/.mexw64 sao binarios,
+# .eps quebra se o Git mexer nas linhas). Desliga qualquer conversao.
+* -text
+
+*.slx  binary
+*.slxc binary
+*.mat  binary
+*.fig  binary
+*.mexw64 binary
+*.eps  binary
+*.jpg  binary
