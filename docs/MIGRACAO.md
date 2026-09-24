@@ -241,7 +241,7 @@ chaveamento Markoviano e injecao de falha, usada nas campanhas Monte Carlo;
 | `design/main_h2_hinf_rob_new_3.m` | igual ao `_2`, mudando so `JInf{i}{k} = B_lat` (disturbio nas duas entradas) |
 | `design/main_h2_rob_new.m` | versao so-H2 da comparacao |
 | `design/main_hinf_rob_new.m` | versao so-H-inf da comparacao |
-| `montecarlo/discrete_markov_system_response_one_round.m` | `MC = 1`, uma realizacao com as transicoes marcadas. **Quebrado**: `load stateS.mat`, arquivo inexistente |
+| `montecarlo/discrete_markov_system_response_one_round.m` | `MC = 1`, uma realizacao com as transicoes marcadas. **Nao roda com o `flag = 2` que vem no arquivo**: faz `load stateS.mat`, que nunca existiu. Nao e dado perdido — o script gera `stateS` sozinho; use `flag = 1` ou reaproveite `stateR.mat`. Ver `ARQUITETURA.md`, item 7 |
 | `postproc/test_hinf_sil2.m` | 4 estados + `u` de uma realizacao |
 | `postproc/test_hinf_control.m` | compara `u` vs `uA` das 3 estrategias -> `control_pract.eps` |
 | `postproc/test_hinf_control_2.m` | versao reduzida, so `youtdet` |

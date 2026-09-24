@@ -142,8 +142,12 @@ outra execucao.
    `gamma` otimista. Detalhes e as versoes antigas em
    [`docs/MIGRACAO.md`](docs/MIGRACAO.md) e `legacy/duplicates/`.
 
-4. **`discrete_markov_system_response_one_round.m` esta quebrado**: faz
-   `load stateS.mat`, e esse arquivo nao existe em nenhum lugar do projeto.
+4. **`discrete_markov_system_response_one_round.m` nao roda como esta**: ele vem
+   com `flag = 2`, que faz `load stateS.mat`, e esse arquivo nao existe (nunca
+   existiu — conferido contra o estado original). Nao e dado perdido: o proprio
+   script **gera** `stateS`. Basta `flag = 1` para sortear uma cadeia nova.
+   Detalhes e a alternativa de reaproveitar o `stateR.mat` em
+   [`docs/ARQUITETURA.md`](docs/ARQUITETURA.md).
 
 Outras pegadinhas conhecidas (tratamento de falha do solver, indexacao de `C`
 em `hinf_norm`, `x_pract.eps` sobrescrito) estao catalogadas em

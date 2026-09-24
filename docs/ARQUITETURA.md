@@ -231,8 +231,56 @@ perca tempo redescobrindo.
    assigned"*. Nas funcoes mistas e pior: o ramo de falha zera `gamma2`, mas a
    saida chamada e `gammaInf`.
 
-7. **`discrete_markov_system_response_one_round.m` faz `load stateS.mat`**, e
-   esse arquivo nao existe em nenhum lugar do projeto.
+7. **`discrete_markov_system_response_one_round.m` nao roda com o `flag` que
+   vem no arquivo.** A linha 21 traz `flag = 2`, que dispara
+   `load stateS.mat` — e `stateS.mat` nao existe, nem nunca existiu no projeto
+   original (verificado contra o estado anterior a reorganizacao; o unico `.mat`
+   parecido e `stateR.mat`).
+
+   Isso **nao e dado perdido**. O `flag` e um switch de reprodutibilidade, e o
+   proprio script produz o arquivo: na linha 81 ele faz `stateS{i} = state;`.
+   O fluxo pretendido era rodar uma vez com `flag = 1` (sorteia a cadeia),
+   salvar a realizacao a mao e depois voltar para `flag = 2` para repetir
+   exatamente a mesma sequencia de falhas. O `.mat` simplesmente nunca foi
+   salvo, ou nao foi copiado junto.
+
+   **Como rodar.** A correcao mais simples e `flag = 1`. Se voce quiser uma
+   realizacao fixa e reproduzivel, ha duas opcoes:
+
+   - Reaproveitar o `stateR.mat` da campanha 1, que e o analogo direto e
+     **dimensionalmente compativel**: e um `double` `1 x 162`, e os dois scripts
+     usam `Ts = 0.05`, `Tf = 8`, logo `Nsteps + 1 = 162` nos dois. Trocar
+     `load stateS.mat; state = stateS;` por `load stateR.mat; state = stateR;`
+     funciona direto.
+   - Gerar o proprio: rodar com `flag = 1`, depois
+     `save stateS.mat state` — note **`state`, nao `stateS`**.
+
+   E aqui esta a pegadinha dentro da pegadinha: `stateS` e um **cell array**
+   (`stateS{i} = state`), enquanto a linha 26 faz `state = stateS;`. Se alguem
+   salvasse `stateS` como esta e recarregasse, `state` viraria um cell e
+   `state(k)` — usado como indice em `dtmjls(...,state(k))` e em
+   `K{CL(state(k))}` — falharia. O caminho equivalente da campanha 1 funciona
+   justamente porque `stateR` foi salvo como **numerico**, nao como cell.
+
+   Para referencia, decodifiquei o `stateR.mat` (MAT v5 comprimido, criado em
+   20/Jan/2025). Ele contem os modos `{1, 4, 5, 6}` e 10 transicoes:
+
+   | Passo | Tempo | Transicao |
+   |---|---|---|
+   | 38 | 1,90 s | 4 -> 5 |
+   | 42 | 2,10 s | 5 -> 1 |
+   | 51 | 2,55 s | 1 -> 4 |
+   | 57 | 2,85 s | 4 -> 1 |
+   | 95 | 4,75 s | 1 -> 4 |
+   | 99 | 4,95 s | 4 -> 6 |
+   | 126 | 6,30 s | 6 -> 4 |
+   | 136 | 6,80 s | 4 -> 5 |
+   | 146 | 7,30 s | 5 -> 1 |
+   | 150 | 7,50 s | 1 -> 4 |
+
+   Essa realizacao passa pelas tres condicoes de falha, incluindo o modo 6
+   (inversao de sinal do rudder) entre 4,95 s e 6,30 s — exatamente o caso que o
+   revisor pediu em `02.sucker_comments.txt`.
 
 8. **`legacy/superseded/testes_main_h2_hinf_rob_new.m`** usa `K{CL(i)}` sem
    definir `K` (a sintese devolve `K2`) e imprime variaveis cuja atribuicao
