@@ -1,0 +1,23 @@
+H2 Control com falha: Guiagem_Cessna_2024_H2_MC.slx
+Hinf Control com falha: Guiagem_Cessna_2024_Hinf_MC_2.slx
+
+Script pré simulação: main_h2_hinf_rob.m
+
+
+Cálculos de norma Hinf para uma realização: main_h_infty.m
+Script para o plot da área: test_h2.m e test_hinfty.m
+
+Script para plot de uma realização: discrete_markov_system_response_h2_rob.m
+
+Scripts para plotar as trajetórias práticas em Vermelho:
+test_hinf.m
+test_h2.m
+
+From matlab: '161.24.191.101'
+Port: 49000
+
+To matlab:161.24.191.100
+Port 49001
+
+MATLAB Local Address: 161.24.191.100
+Remote Address: 161.24.191.101

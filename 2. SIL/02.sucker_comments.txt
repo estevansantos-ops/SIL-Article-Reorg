@@ -1,0 +1,9 @@
+How were the faults implemented in simulation? 
+
+Maybe add a single simulation case where you indicate the moment each transition takes place, so we can appreciate the effects on the controlled aircraft (in particular, mode 3). 
+
+
+
+
+Also, maybe
+add figures with the corresponding aileron and rudder commands to Figures 2, 6 and 7.
